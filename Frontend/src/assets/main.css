@@ -1,0 +1,14 @@
+:root {
+
+    /* Footer */
+    --footer-background: #555555;
+    --footer-color: #f0f0f0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+a:hover {
+    color: inherit;
+}
