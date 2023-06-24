@@ -1,14 +1,27 @@
 const express = require("express");
 const mongoose = require('mongoose');
-const { autos } = require("./db/scheme.js")
+const { autosSchema, rentedAutoSchema } = require("./db/scheme.js")
 
 
 const app = new(express);
+const autos = mongoose.model('Auto', autosSchema)
+const rentedAuto = mongoose.model('RentedAuto', rentedAutoSchema)
+
+app.use(express.json());
+// app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 // All auto
-app.get('/', (req, res) => {
-    
-  })
+app.get('/freeall', (req, res) => {
+    try {
+        res.json({
+            result: "ok"
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(500).send("Error")
+    }
+})
 
 
 async function main() {
