@@ -3,6 +3,7 @@
 // Компоненты
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
+// Import all of Bootstrap's CSS
 import '@/assets/main.css'
 import { RouterView } from 'vue-router'
 
