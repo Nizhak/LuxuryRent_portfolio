@@ -10,10 +10,17 @@ dayjs.locale('ru');
 dayjs.extend(relativeTime)
 
 // Всё для vue
-import { createApp } from 'vue'
+import Vue from 'vue'
+import i18n from "./i18n"
 import App from './App.vue'
 import router from './router.js';
+Vue.config.productionTip = false
+
 
 
 // Рендер в HTML
-createApp(App).use(router).mount('#app');
+new Vue({
+    i18n,
+    router,
+    render: h => h(App)
+  }).$mount('#app')
