@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
+const path = require('path');
 const { autosSchema, rentedAutoSchema } = require("./db/scheme.js")
 const cors = require('cors')
 const { faker } = require('@faker-js/faker');
@@ -10,6 +11,8 @@ const rentedAuto = mongoose.model('RentedAuto', rentedAutoSchema)
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, 'dist')));
+
 
 // All auto
 app.get('/all', async (req, res) => {
@@ -47,7 +50,8 @@ app.post("/payment/create", async (req, res) => {
         } else {
             res.status(400).json({Status: "error"})
         }
-        // console.log(req.body);
+
+        if (process.env.Node_ENV == "development") console.log(req.body);
         // res.json(req.body)
     } catch (err) {
         console.log(err)
@@ -69,7 +73,7 @@ app.post("/payment", async (req, res) => {
                 status: "error"
             })
         }
-        console.log(req.body);
+        if (process.env.Node_ENV == "development") console.log(req.body);
     } catch (err) {
         console.log(err)
         res.status(500).send("Error")
@@ -78,26 +82,34 @@ app.post("/payment", async (req, res) => {
 
 app.post("/myauto", async (req, res) => {
     try {
-
+        if (process.env.Node_ENV == "development") console.log(req.body);
         if (req.body.id) {
             var rented = await rentedAuto.findById(req.body.id)
-            console.log(rented);    
-            if (rented.isPayment) {
-                var auto = await autos.findById(rented.auto)
-                if (!rented.carNumber) {
-                    auto.counter =- 1;
-                    auto.save()
-                    rented.carNumber = faker.vehicle.vrm()
-                    await rented.save()
-                }                
-                res.json({
-                    auto,
-                    carNumber: rented.carNumber,
-                    duration: rented.duration
-                })
+            if (process.env.Node_ENV == "development") console.log(rented);  
+            if (rented) {  
+                if (rented.isPayment) {
+                    var auto = await autos.findById(rented.auto)
+                    if (!rented.carNumber) {
+                        if (auto.counter > 0) {
+                            auto.counter =- 1;
+                            auto.save()
+                            rented.carNumber = faker.vehicle.vrm()
+                            await rented.save()
+                        }
+                    }                
+                    res.json({
+                        auto,
+                        carNumber: rented.carNumber,
+                        duration: rented.duration
+                    })                        
+                } else {
+                    res.status(400).json({
+                        status: "Not Payment"
+                    })
+                }
             } else {
-                res.status(400).json({
-                    status: "Not Payment"
+                res.status(404).json({
+                    status: "Order not found"
                 })
             }
         }
@@ -106,6 +118,11 @@ app.post("/myauto", async (req, res) => {
         res.status(500).send("Error")
     }
 })
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
+
 
 async function main() {
     try {

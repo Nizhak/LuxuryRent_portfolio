@@ -1,6 +1,8 @@
 // Запросы к серверу
 import axios from "axios";
-axios.defaults.baseURL = 'http://localhost:3000';
+if (process.env.Node_ENV == "development") {
+    axios.defaults.baseURL = 'http://localhost:3000';
+}
 
 // Работа с датой
 import dayjs from 'dayjs';
@@ -12,8 +14,9 @@ dayjs.extend(relativeTime)
 // Всё для vue
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router.js';
+import router from './router.js'
+
 
 
 // Рендер в HTML
-createApp(App).use(router).mount('#app');
+createApp(App).use(router).mount('#app')
