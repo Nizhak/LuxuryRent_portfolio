@@ -15,7 +15,7 @@ export default {
         axios
         .get('/all')
         .then(response => this.autos = response.data)
-        .catch(error => console.log(error));
+        .catch(error => { if (process.env.Node_ENV == "development") console.log(error) });
     }
 };
 </script>

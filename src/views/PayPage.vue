@@ -30,12 +30,31 @@
             updateCardCvv (val) {
             },
             async checkPayment() {
-                const responce = await axios.post("/payment", this.formData)
-                console.log(responce);
+                if (process.env.Node_ENV == "development") {
+                    console.log(this.formData);
+                }
+
+                const data = {
+                    id: this.$route.query.id,
+                    cardName: this.formData.cardName,
+                    cardNumber: this.formData.cardNumberNotMask.replace(/ /g, ''),
+                    cardMonth: this.formData.cardMonth,
+                    cardYear: this.formData.cardYear,
+                    cardCvv: this.formData.cardCvv
+                }
+
+                if (process.env.Node_ENV == "development") {
+                    console.log(data);
+                }
+                
+                const responce = await axios.post("/payment", data)
+                if (process.env.Node_ENV == "development") {
+                    console.log(responce);
+                }
                 if (responce.status == 200) {
                     this.$router.push({
                         name: 'success',
-                        query: { id: this.formData.id }
+                        query: { id: responce.data._id }
                     })
                 }
             }
@@ -56,6 +75,7 @@
             @input-card-month="updateCardMonth"
             @input-card-year="updateCardYear"
             @input-card-cvv="updateCardCvv"
+            @submit="checkPayment"
             />
             <!-- backgroundImage="https://images.unsplash.com/photo-1572336183013-960c3e1a0b54?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" -->
         </div>

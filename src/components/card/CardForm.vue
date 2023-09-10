@@ -11,9 +11,9 @@
     </div>
     <div class="card-form__inner">
       <div class="card-input">
-        <label for="cardNumber" class="card-input__label">{{ $t('cardForm.cardNumber') }}</label>
+        <label for="cardNumber" class="card-input__label">Card Number</label>
         <input
-          type="tel"
+          type="card"
           :id="fields.cardNumber"
           @input="changeNumber"
           @focus="focusCardNumber"
@@ -34,7 +34,7 @@
         ></button>
       </div>
       <div class="card-input">
-        <label for="cardName" class="card-input__label">{{ $t('cardForm.cardName') }}</label>
+        <label for="cardName" class="card-input__label">Card Name</label>
         <input
           type="text"
           :id="fields.cardName"
@@ -49,7 +49,7 @@
       <div class="card-form__row">
         <div class="card-form__col">
           <div class="card-form__group">
-            <label for="cardMonth" class="card-input__label">{{ $t('cardForm.expirationDate') }}</label>
+            <label for="cardMonth" class="card-input__label">Expiration Date</label>
             <select
               class="card-input__input -select"
               :id="fields.cardMonth"
@@ -57,7 +57,7 @@
               @change="changeMonth"
               data-card-field
             >
-              <option value disabled selected>{{ $t('cardForm.month') }}</option>
+              <option value disabled selected>Month</option>
               <option
                 v-bind:value="n < 10 ? '0' + n : n"
                 v-for="n in 12"
@@ -72,7 +72,7 @@
               @change="changeYear"
               data-card-field
             >
-              <option value disabled selected>{{ $t('cardForm.year') }}</option>
+              <option value disabled selected>Year</option>
               <option
                 v-bind:value="$index + minCardYear"
                 v-for="(n, $index) in 12"
@@ -83,13 +83,13 @@
         </div>
         <div class="card-form__col -cvv">
           <div class="card-input">
-            <label for="cardCvv" class="card-input__label">{{ $t('cardForm.CVV') }}</label>
+            <label for="cardCvv" class="card-input__label">CVV</label>
             <input
               type="tel"
               class="card-input__input"
               v-number-only
               :id="fields.cardCvv"
-              maxlength="4"
+              maxlength="3"
               :value="formData.cardCvv"
               @input="changeCvv"
               data-card-field
@@ -99,7 +99,7 @@
         </div>
       </div>
 
-      <button class="card-form__button" v-on:click="invaildCard">{{ $t('cardForm.submit') }}</button>
+      <button class="card-form__button" v-on:click="validate">Оплатить</button>
     </div>
   </div>
 </template>
@@ -227,23 +227,6 @@ export default {
       this.formData.cardCvv = e.target.value
       this.$emit('input-card-cvv', this.formData.cardCvv)
     },
-    invaildCard () {
-      let number = this.formData.cardNumberNotMask.replace(/ /g, '')
-      var sum = 0
-      for (var i = 0; i < number.length; i++) {
-        var intVal = parseInt(number.substr(i, 1))
-        if (i % 2 === 0) {
-          intVal *= 2
-          if (intVal > 9) {
-            intVal = 1 + (intVal % 10)
-          }
-        }
-        sum += intVal
-      }
-      if (sum % 10 !== 0) {
-        alert(this.$t('cardForm.invalidCardNumber'))
-      }
-    },
     blurCardNumber () {
       if (this.isCardNumberMasked) {
         this.maskCardNumber()
@@ -272,6 +255,31 @@ export default {
         this.maskCardNumber()
       } else {
         this.unMaskCardNumber()
+      }
+    },
+    validate() {
+      let number = this.formData.cardNumberNotMask.replace(/ /g, '')
+      
+      if (number.length != 16) {
+        return alert('Invalid Card Number')
+      }
+
+      if (this.formData.cardCvv.length != 3) {
+        return alert('Invalid CVV')
+      }
+      if (this.formData.cardName.length < 3) {
+        return alert('Invalid Card Name')
+      }
+
+      if (
+        number.length == 16
+        &&
+        this.formData.cardCvv.length == 3
+        &&
+        this.formData.cardName.length >= 3
+      ) {
+
+        this.$emit("submit")
       }
     }
   }

@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "vite",
+    "start": "node index.js",
     "dev": "nodemon index.js",
+    "dev-vue": "SET Node_ENV=development & vite dev",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -17,15 +18,18 @@
     "dayjs": "^1.11.8",
     "express": "^4.18.2",
     "mongoose": "^7.3.1",
-    "nodemon": "^2.0.22",
     "vite": "^4.1.4",
     "vue": "^3.2.47",
-    "vue-i18n": "^8.28.2",
     "vue-router": "^4.2.2",
     "vue-the-mask": "^0.11.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
-    "sass": "^1.63.6"
-  }
+    "sass": "^1.63.6",
+    "nodemon": "^2.0.22"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }
