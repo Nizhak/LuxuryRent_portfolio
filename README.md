@@ -1,29 +1,42 @@
-# 1.first-project
+# LuxuryRent
+LuxuryRent - это вымышленный проект, созданный для демонстрации навыков разработки в области веб-разработки и дизайна. Этот проект представляет собой веб-платформу для аренды премиальных автомобилей с 10-летним опытом в сфере. Все данные и изображения в этом проекте являются вымышленными и используются исключительно в целях демонстрации.
 
-This template should help get you started developing with Vue 3 in Vite.
+## Установка и запуск
+Для запуска проекта должен быть установлен [Node.js](https://nodejs.org/) и [npm](https://www.npmjs.com/) (Поставляется вместе с Node.js)
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+~~~sh
 npm install
-```
+# or
+yarn
+~~~
+Эта команда запустит установку необходимых для запуска зависимостей (пакетов и библиотек)
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
+~~~sh
 npm run build
-```
+# or
+yarn run build
+~~~
+Соберёт и подготовит приложения для запуска
+
+~~~sh
+npm run start
+# or
+yarn run start
+~~~
+Запустит приложение и оно будет доступно по адресу **[localhost:3000](http://localhost:3000)**
+
+
+## Технологии:
+**Фронтенд:** Веб-приложение разработано с использованием Vue.js для создания интерактивного и привлекательного интерфейса.
+
+**Бэкенд:** Данные о пользователях, автомобилях и бронированиях управляются на сервере, используя Node.js и Express.js.
+
+**База данных:** Для хранения данных о пользователях, автомобилях и бронированиях используется база данных MongoDB.
+
+
+
+## Цель проекта:
+Целью LuxuryRent является демонстрация навыков веб-разработки и дизайна, а также способности создавать интерактивные и привлекательные пользовательские интерфейсы. Проект разработан исключительно для портфолио и не представляет настоящую компанию или услуги.
+
+### Заметка:
+Этот проект полностью вымышлен и создан исключительно в образовательных целях. Ни один реальный бизнес или данные не связаны с этим проектом.
