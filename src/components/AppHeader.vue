@@ -13,7 +13,7 @@ import { RouterLink } from 'vue-router';
     </nav>
 </template>
 
-<style>
+<style lang="scss">
     #app > header > .container {
         display: flex;
         justify-content: space-between;
@@ -24,6 +24,9 @@ import { RouterLink } from 'vue-router';
 
     #app > header > .container nav {
         width: 20%;
+        @media (max-width: 769px) {
+            width: 35%;
+        }
     }
     #app > header > .container nav ul {
         padding: 0;

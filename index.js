@@ -126,7 +126,7 @@ app.get('*', (req, res) => {
 
 async function main() {
     try {
-        const mongo_url = process.env.MONGODB_URI;
+        const mongo_url = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/LuxuryRent';
         await mongoose.connect(mongo_url)
         await app.listen(3000, () => {
             console.log("Server started")
