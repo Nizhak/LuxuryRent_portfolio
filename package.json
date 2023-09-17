@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node index.js",
+    "start-vue": "vite",
     "dev": "nodemon index.js",
     "dev-vue": "SET Node_ENV=development & vite dev",
     "build": "vite build",
@@ -20,13 +21,14 @@
     "mongoose": "^7.3.1",
     "vite": "^4.1.4",
     "vue": "^3.2.47",
+    "vue-cookies": "^1.8.3",
     "vue-router": "^4.2.2",
     "vue-the-mask": "^0.11.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
-    "sass": "^1.63.6",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "sass": "^1.63.6"
   },
   "browserslist": [
     "> 1%",

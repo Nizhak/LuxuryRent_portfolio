@@ -1,11 +1,20 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router';
 
-
+export default {
+    methods: {
+        removeCookie() {
+            this.$cookies.remove('isFirst')
+            location.reload()
+            
+        },
+    }
+}
 </script>
 <template>
     <div>
         <h5><RouterLink to="/">LuxuryRent</RouterLink></h5>
+        <button v-if="this.$route.query.dev" type="button" class="btn btn-primary" @click="this.removeCookie">Очистить Cookie</button>
     </div>
     <nav>
         <h5>Навигация</h5>
@@ -19,6 +28,7 @@ import { RouterLink, RouterView } from 'vue-router';
 <style>
     #app > footer > div {
         display: flex;
+        flex-wrap: wrap;
     }
     
     #app > footer > div > * {

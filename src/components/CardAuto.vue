@@ -42,7 +42,7 @@
 </script>
 
 <template>
-    <div class="card p-1" style="width: 22.5%;">
+    <div class="card p-1">
         <div class="card-img-top">
             <img :src="src" :alt="title">
         </div>
@@ -101,9 +101,16 @@
     </div>
 </template>
 
-<style>
+<style lang="scss">
     #app > main .card {
         aspect-ratio: 1 / 1.25;
+        width: 22.5%;
+        @media (max-width: 768px) {
+            width: 48%;
+        }
+        @media (max-width: 441px) {
+            width: 100%;
+        }
     }
     #app > main .card .card-img-top {
         width: 100%;

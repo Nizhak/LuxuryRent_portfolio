@@ -36,6 +36,6 @@ export default {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        gap: 1.5rem;
+        gap: 1rem;
     }
 </style>
